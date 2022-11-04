@@ -59,6 +59,8 @@ if __name__ == '__main__':
             gen = tts.tts_with_preset(text, voice_samples=voice_samples, conditioning_latents=conditioning_latents,
                                       preset=args.preset, clvp_cvvp_slider=args.voice_diversity_intelligibility_slider)
             gen = gen.squeeze(0).cpu()
+            torch.cuda.empty_cache()
+
             torchaudio.save(os.path.join(voice_outpath, f'{j}.wav'), gen, 24000)
             all_parts.append(gen)
         full_audio = torch.cat(all_parts, dim=-1)
