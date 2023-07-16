@@ -1,6 +1,7 @@
 import argparse
 import os
 import time
+import gc
 
 import torch
 import torchaudio
@@ -61,6 +62,7 @@ if __name__ == '__main__':
                                       preset=args.preset, clvp_cvvp_slider=args.voice_diversity_intelligibility_slider)
             gen = gen.squeeze(0).cpu()
             torch.cuda.empty_cache()
+            gc.collect()
             print("Sleeping for 10 Sec")
             time.sleep(10)
             torchaudio.save(os.path.join(voice_outpath, f'{j}.wav'), gen, 24000)
