@@ -63,7 +63,6 @@ if __name__ == '__main__':
             gen = gen.squeeze(0).cpu()
             torch.cuda.empty_cache()
             gc.collect()
-            gen = None # to be deleted if it doesn't work
             print("Sleeping for 10 Sec")
             time.sleep(10)
             torchaudio.save(os.path.join(voice_outpath, f'{j}.wav'), gen, 24000)
